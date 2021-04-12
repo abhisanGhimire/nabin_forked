@@ -20,7 +20,7 @@ Route::resource('/users','UserController');
 
 Route::resource('/address','AddressController');
 
-Route::resource('/admins','AdminController');
+// Route::resource('/admins','AdminController');
 
 Route::resource('/categories','CategoryController');
 
@@ -89,7 +89,12 @@ Route::get('/singlefood/{id}','OrderController@singlefood')->name('singlefood');
 Route::put('/singlefoodupdate/{id}','OrderController@singlefoodUpdate')->name('singlefoodUpdate');
 
 
-
+Route::prefix('admins')->group(function() {
+    Route::get('/login','AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'AdminLoginController@login')->name('admin.login.submit');
+    Route::get('logout/', 'AdminLoginController@logout')->name('admin.logout');
+    Route::get('/', 'AdminController@index')->name('admin.index');
+   }) ;
 
 // Route::get('/foods','FrontendController@foods')->name('foods');
 

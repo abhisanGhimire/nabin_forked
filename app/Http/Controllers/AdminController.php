@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +21,7 @@ class AdminController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            if (Auth::user()->role_id==1) {
+           
         
                  $myorders = Order::with('foods','user')->latest()->get();
                 return view('admin.index',compact('myorders'));
@@ -25,10 +29,7 @@ class AdminController extends Controller
                 else {
                         return view("sorry");
                     }
-                }
-        else{
-            return redirect('/login');
-        }
+           
     }
 
     /**
